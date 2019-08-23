@@ -70,9 +70,10 @@ def load_image_into_numpy_array(image):
 
 # Detection
 PATH_TO_TEST_IMAGES_DIR = "/data/Netlight_Test_Data"
+PATH_OUTPUT_DIR = "/data/Netlight_Output_Data"
 # List all files
 TEST_IMAGE_PATHS = [join(PATH_TO_TEST_IMAGES_DIR, f) for f in listdir(PATH_TO_TEST_IMAGES_DIR) if isfile(join(PATH_TO_TEST_IMAGES_DIR, f))]
-OUTPUT_FILENAMES = [ join(PATH_TO_TEST_IMAGES_DIR, 'final_') + f for f in listdir(PATH_TO_TEST_IMAGES_DIR) if isfile(join(PATH_TO_TEST_IMAGES_DIR, f))]
+OUTPUT_FILENAMES = [ join(PATH_OUTPUT_DIR, 'final_') + f for f in listdir(PATH_TO_TEST_IMAGES_DIR) if isfile(join(PATH_TO_TEST_IMAGES_DIR, f))]
 print(TEST_IMAGE_PATHS)
 # TEST_IMAGE_PATHS = [ join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 8) ]
 
