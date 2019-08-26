@@ -1,0 +1,7 @@
+matplotlib
+absl-py
+google-cloud-storage
+Cython
+pillow
+humanize
+GPUtil
