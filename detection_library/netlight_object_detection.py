@@ -3,7 +3,6 @@ import humanize
 import os
 import argparse
 import logging
-import GPUtil as GPU
 
 from os.path import isfile, join
 from os import listdir
@@ -12,10 +11,8 @@ import numpy as np
 import os
 import six.moves.urllib as urllib
 import sys
-import tarfile
 import tensorflow as tf
 import zipfile
-import pandas as pd
 
 from distutils.version import StrictVersion
 from collections import defaultdict
@@ -28,14 +25,14 @@ if StrictVersion(tf.__version__) < StrictVersion('1.12.0'):
 	raise ImportError('Please upgrade your TensorFlow installation to v1.12.*.')
 
 # Setting the logging level
-logging.basicConfig(level=constants.LOGGING_LEVEL)
+logging.basicConfig(level=constants.app_config['LOGGING_LEVEL'])
 
 # Importing the object_detection model based on model path for env
 env_type = 2
 if env_type == 1:
-	MODELS_PATH = constants.MODELS_PATH
+	MODELS_PATH = constants.vm_config['MODELS_PATH']
 else:
-	MODELS_PATH = constants.MODELS_PATH_LOCAL
+	MODELS_PATH = constants.local_config['MODELS_PATH']
 sys.path.append(MODELS_PATH + "research")
 sys.path.append(MODELS_PATH)
 sys.path.append(MODELS_PATH + 'slim')
@@ -81,7 +78,12 @@ class ObjectDetection:
 	# Helper Image Loader
 	def load_image_into_numpy_array(self, image):
 		(im_width, im_height) = image.size
-		return np.array(image.getdata()).reshape((im_height, im_width, 3)).astype(np.uint8)
+		x = ''
+		try:
+			x = np.array(image.getdata()).reshape((im_height, im_width, 3))
+		except:
+			raise "Image cannot be reshaped"
+		return x.astype(np.uint8)
 
 	# Run inference for a single image
 	def run_inference_for_single_image(self, image):
