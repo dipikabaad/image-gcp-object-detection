@@ -20,7 +20,7 @@ from collections import defaultdict
 from io import StringIO
 from matplotlib import pyplot as plt
 from PIL import Image
-from utils import constants
+from netlight_utils import constants
 from detection_library.netlight_object_detection import ObjectDetection
 
 # from object_detection.utils import ops as utils_ops
@@ -51,9 +51,9 @@ if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser(description='Process some integers.')
 	# Accept if local/vm env for running
-	parser.add_argument('env', help='1: if running on VM on google cloud, 2: if running on local machine other than cloud')
+	parser.add_argument('env', type=int, help='1: if running on VM on google cloud, 2: if running on local machine other than cloud')
 	args = parser.parse_args()
-
+        print(args.env)
 	if args.env == 1:
 		stream_logger.info('VM settings activated!')
 		# Setting the constants
@@ -64,7 +64,6 @@ if __name__ == "__main__":
 		# Detection
 		OUTPUT_IMAGE_BASE_DIR = constants.OUTPUT_IMAGE_BASE_DIR
 		OUTPUT_CSV_BASE_DIR = constants.OUTPUT_CSV_BASE_DIR
-
 	else:
 		stream_logger.info('LOCAL settings activated!')
 		# Setting the constants
@@ -171,8 +170,8 @@ if __name__ == "__main__":
 		new_im.save(OUTPUT_FILENAMES[image_index])
 		image_index += 1
 
-	# print("Final Output")
-	# print(final_output)
+	print("Final Output")
+	print(final_output)
 
 	# Grouping the tags with some location when the threshold is greater 0.5
 	output_for_file = []
