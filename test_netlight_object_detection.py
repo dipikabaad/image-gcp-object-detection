@@ -106,7 +106,7 @@ if __name__ == "__main__":
 		count = 0
 		for image_path in TEST_IMAGE_PATHS:
 			if count % 20 == 0:
-				stream_logger.info("Completed docs {}: {}".format((float(count)/total_images)*100, count)
+				stream_logger.info("Completed docs {}: {}".format((float(count)/total_images)*100, count))
 			count += 1
 			blob = bucket.get_blob(image_path)
 			blob.download_to_filename(PATH_TO_TEST_IMAGES_DIR + '/' + 'sample.jpg')

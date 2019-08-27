@@ -28,7 +28,7 @@ if StrictVersion(tf.__version__) < StrictVersion('1.12.0'):
 logging.basicConfig(level=constants.app_config['LOGGING_LEVEL'])
 
 # Importing the object_detection model based on model path for env
-env_type = 2
+env_type = 1
 if env_type == 1:
 	MODELS_PATH = constants.vm_config['MODELS_PATH']
 else:
