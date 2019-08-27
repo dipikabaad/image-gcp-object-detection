@@ -53,7 +53,6 @@ if __name__ == "__main__":
 	# Accept if local/vm env for running
 	parser.add_argument('env', type=int, help='1: if running on VM on google cloud, 2: if running on local machine other than cloud')
 	args = parser.parse_args()
-        print(args.env)
 	if args.env == 1:
 		stream_logger.info('VM settings activated!')
 		# Setting the constants

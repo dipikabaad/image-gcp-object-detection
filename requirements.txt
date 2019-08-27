@@ -5,3 +5,6 @@ Cython
 pillow
 humanize
 GPUtil
+pandas
+psutil
+tensorflow

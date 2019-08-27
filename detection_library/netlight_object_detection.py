@@ -22,7 +22,7 @@ from collections import defaultdict
 from io import StringIO
 from matplotlib import pyplot as plt
 from PIL import Image
-from utils import constants
+from netlight_utils import constants
 
 if StrictVersion(tf.__version__) < StrictVersion('1.12.0'):
 	raise ImportError('Please upgrade your TensorFlow installation to v1.12.*.')
