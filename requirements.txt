@@ -9,3 +9,4 @@ pandas
 psutil
 tensorflow
 google-cloud-storage
+flask
