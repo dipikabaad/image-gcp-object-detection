@@ -172,6 +172,15 @@ if __name__ == "__main__":
 			output_dict_for_final['detected_objects'] = objects
 			output_dict_for_final['detected_scores'] = scores
 			output_dict_for_final['detected_boxes'] = boxes
+            try:
+                r = requests.post(url = API_ENDPOINT + 'insert_data', json = row_obj_for_insertion, timeout=3)
+                # r = requests.get(url = API_ENDPOINT, timeout=1)
+                print(r.text)
+                if r['status'] != 200:
+                    stream_logger.error("Insertion failed for record {}".format(row_obj_for_insertion['input_file_path']))
+            except Timeout as e:
+                stream_logger.exception("Timeout occured during insert_Ddata")
+
 			writer.writerow(output_dict_for_final)
 			# final_output.append(output_dict_for_final)
 		  	# plt.figure(figsize=IMAGE_SIZE)
