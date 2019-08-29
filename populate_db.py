@@ -2,6 +2,7 @@ import csv
 from netlight_utils import constants
 import requests
 from requests.exceptions import Timeout
+import logging
 
 formatter = logging.Formatter('%(asctime)s : %(message)s')
 stream_logger = logging.getLogger('logger_stream')
@@ -32,14 +33,16 @@ def insert_models_results():
                 # Call the API
 
                 try:
-                    r = requests.post(url = API_ENDPOINT + 'insert_data', json = row_obj_for_insertion, timeout=3)
+                    r= requests.post(url = API_ENDPOINT + 'insert_data', json = row_obj_for_insertion, timeout=5)
                     # r = requests.get(url = API_ENDPOINT, timeout=1)
                     print(r.text)
-                    if r['status'] != 200:
-                        stream_logger.error("Insertion failed for record {}".format(row_obj_for_insertion['input_file_path']))
+                    # if r["status"] != 200:
+                    #     stream_logger.error("Insertion failed for record {}".format(row_obj_for_insertion['input_file_path']))
                 except Timeout as e:
                     stream_logger.exception("Timeout occured during insert_Ddata")
                 line_count += 1
-            if line_count == 10:
-                break
+            # if line_count == 10:
+            #     break
         stream_logger.info(f'Processed {line_count} lines.')
+
+insert_models_results()
