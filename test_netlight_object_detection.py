@@ -16,6 +16,8 @@ import sys
 import tensorflow as tf
 import pandas as pd
 import csv
+import requests
+from requests.exceptions import Timeout
 
 from distutils.version import StrictVersion
 from collections import defaultdict
@@ -66,6 +68,8 @@ if __name__ == "__main__":
 	PATH_OUTPUT_DIR = OUTPUT_IMAGE_BASE_DIR + '/Netlight_Output_Data'
 	CSV_OUTPUT_DIR = OUTPUT_CSV_BASE_DIR + '/Netlight_Object_Detection'
 
+	API_ENDPOINT = "http://127.0.0.1:5000/"
+
 	# This is needed to give the path to the models research where object_detection resides.
 	sys.path.append(MODELS_PATH + "research")
 	sys.path.append(MODELS_PATH)
@@ -85,7 +89,7 @@ if __name__ == "__main__":
 		except:
 			stream_logger.warning('{} file is not an image.'.format(blob.name))
 			continue
-		if blob.name.startswith('Netlight Helsink') and ('/' in blob.name):
+		if (blob.name.startswith('Netlight Helsink') and ('/' in blob.name)):
 			TEST_IMAGE_PATHS.append(blob.name)
 	stream_logger.debug(TEST_IMAGE_PATHS[:10])
 
@@ -173,14 +177,14 @@ if __name__ == "__main__":
 			output_dict_for_final['detected_objects'] = objects
 			output_dict_for_final['detected_scores'] = scores
 			output_dict_for_final['detected_boxes'] = boxes
-            try:
-                r = requests.post(url = API_ENDPOINT + 'insert_data', json = row_obj_for_insertion, timeout=3)
-                # r = requests.get(url = API_ENDPOINT, timeout=1)
-                print(r.text)
-                if r['status'] != 200:
-                    stream_logger.error("Insertion failed for record {}".format(row_obj_for_insertion['input_file_path']))
-            except Timeout as e:
-                stream_logger.exception("Timeout occured during insert_Ddata")
+			# try:
+			# 	r = requests.post(url = API_ENDPOINT + 'insert_data', json = output_dict_for_final, timeout=3)
+            #     # r = requests.get(url = API_ENDPOINT, timeout=1)
+			# 	print(r.text)
+			# 	if r['status'] != 200:
+			# 		stream_logger.error("Insertion failed for record {}".format(output_dict_for_final['input_file_path']))
+			# except Timeout as e:
+			# 	stream_logger.exception("Timeout occured during insert_data")
 
 			writer.writerow(output_dict_for_final)
 			# final_output.append(output_dict_for_final)
