@@ -85,7 +85,7 @@ if __name__ == "__main__":
 		except:
 			stream_logger.warning('{} file is not an image.'.format(blob.name))
 			continue
-		if blob.name.startswith('Netlight ') and ('/' in blob.name):
+		if blob.name.startswith('Netlight Helsink') and ('/' in blob.name):
 			TEST_IMAGE_PATHS.append(blob.name)
 	stream_logger.debug(TEST_IMAGE_PATHS[:10])
 
@@ -98,8 +98,9 @@ if __name__ == "__main__":
 	final_output = []
 	OUTPUT_FILENAMES_temp = []
 	total_images = len(TEST_IMAGE_PATHS)
+	print(object_detection_model.category_index)
 	# Write the output line by line to csv
-	with open( CSV_OUTPUT_DIR + '/' + 'obj_detection_output.csv', mode='w') as csv_file:
+	with open( CSV_OUTPUT_DIR + '/' + 'obj_detection_output.csv', mode='a') as csv_file:
 		fieldnames = ['input_file_path', 'location', 'detected_objects', 'detected_scores', 'detected_boxes', 'output_file_path']
 		writer = csv.DictWriter(csv_file, fieldnames=fieldnames, delimiter='\t')
 		writer.writeheader()
