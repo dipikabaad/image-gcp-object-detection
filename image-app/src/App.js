@@ -90,7 +90,9 @@ class App extends Component {
     let model_data = this.state.filtered_model_results
     let output_file_path = ""
     let images_to_be_rendered = []
+    // console.log(model_data)
     let filtered_data = model_data.filter((x) => { return (x['detected_objects'].includes(this.state.search_text))})
+    // console.log(filtered_data)
     filtered_data.map(function(data, index){
       output_file_path = data['output_file_path']
       images_to_be_rendered.push({
@@ -100,9 +102,7 @@ class App extends Component {
         thumbnailHeight: 320,
         caption: data['detected_objects']
       })
-      return null;
     })
-
       this.setState({ images_loaded: true, images: images_to_be_rendered})
 
   }
@@ -110,18 +110,23 @@ class App extends Component {
   render() {
     return ( <div style={{}}>
       <Navbar bg="dark" variant="dark" style={{ width: "100%"}}>
-        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Navbar.Brand href="#home">Netlight</Navbar.Brand>
         <Nav className="mr-auto">
         <DropdownButton id="dropdown-basic-button" title="Location" onSelect={this.location_filter}>
           <Dropdown.Item eventKey="All">All</Dropdown.Item>
           <Dropdown.Item eventKey="Helsinki">Helsinki</Dropdown.Item>
           <Dropdown.Item eventKey="Berlin">Berlin</Dropdown.Item>
+          <Dropdown.Item eventKey="Stockholm">Stockholm</Dropdown.Item>
+          <Dropdown.Item eventKey="Zurich">Zurich</Dropdown.Item>
+          <Dropdown.Item eventKey="Frankfurt">Frankfurt</Dropdown.Item>
+          <Dropdown.Item eventKey="Munich">Munich</Dropdown.Item>
+          <Dropdown.Item eventKey="Copenhagen">Copenhagen</Dropdown.Item>
           <Dropdown.Item eventKey="Oslo">Oslo</Dropdown.Item>
         </DropdownButton>
         </Nav>
-        <Form inline onSubmit={this.handleSearch}>
+        <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2"  onChange={this.setSearch}/>
-          <Button variant="outline-info" type="Submit">Search</Button>
+          <Button variant="outline-info" type="Button" onClick={this.handleSearch}>Search</Button>
         </Form>
       </Navbar>
       <br></br>
