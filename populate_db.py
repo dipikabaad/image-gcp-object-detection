@@ -13,14 +13,14 @@ def insert_models_results():
     """
     Insert the data from final results csv to mongodb
     """
-    CSV_OUTPUT_PATH = constants.local_config['OUTPUT_CSV_BASE_DIR'] + '/Netlight_Object_Detection/' + 'obj_detection_output.csv'
+    CSV_OUTPUT_PATH = constants.vm_config['OUTPUT_CSV_BASE_DIR'] + '/Netlight_Object_Detection/' + 'obj_detection_output.csv'
 
     with open(CSV_OUTPUT_PATH, 'r') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter='\t')
         line_count = 0
         for row in csv_reader:
             if line_count == 0:
-                print(f'Column names are {", ".join(row)}')
+                #print(f'Column names are {", ".join(row)}')
                 line_count += 1
             else:
                 row_obj_for_insertion = {}
@@ -43,6 +43,6 @@ def insert_models_results():
                 line_count += 1
             # if line_count == 10:
             #     break
-        stream_logger.info(f'Processed {line_count} lines.')
+        #stream_logger.info(f'Processed {line_count} lines.')
 
 insert_models_results()
