@@ -7,6 +7,7 @@ humanize
 GPUtil
 pandas
 psutil
-tensorflow
-google-cloud-storage
 flask
+flask_cors
+csv
+pymongo
