@@ -31,7 +31,7 @@ class App extends Component {
   componentDidMount(){
     let images_to_be_rendered = []
     let output_file_path = ""
-    fetch('http://35.210.69.66:80/get_data').then(res => res.json())
+    fetch('http://35.190.126.95:80/get_data').then(res => res.json())
     .then((data) => {
       data['results'].map( function(data1, index1) {
         output_file_path = data1['output_file_path']
